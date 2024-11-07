@@ -1,0 +1,49 @@
+package id.my.hendisantika.imageresizer.service;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : spring-boot-image-resize
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 08/11/24
+ * Time: 06.07
+ * To change this template use File | Settings | File Templates.
+ */
+public class ImageResizer {
+    private int requestedWidth;
+    private int requestedHeight;
+
+    public byte[] resizeImage(BufferedImage sourceImage, String typeName) throws IOException {
+
+        ImageSettingsBuilder imageSettingsBuilder = new ImageSettingsBuilder();
+        ImageSettings imageSettings = imageSettingsBuilder.buildImageSettings(typeName);
+        requestedWidth = imageSettings.getWidth();
+        requestedHeight = imageSettings.getHeight();
+
+        BufferedImage resizedImage = this.calculateAspectRatio(sourceImage);
+        BufferedImage newImage = new BufferedImage(requestedWidth, requestedHeight, sourceImage.getType());
+
+        Graphics2D g1 = resizedImage.createGraphics();
+        g1.drawImage(sourceImage, 0, 0, requestedWidth, requestedHeight, null);
+        g1.dispose();
+
+        int imageSpaceWidth = (requestedWidth - resizedImage.getWidth()) / 2;
+        int imageSpaceHeight = (requestedHeight - resizedImage.getHeight()) / 2;
+
+        Graphics2D g2 = newImage.createGraphics();
+        g2.drawImage(newImage, 0, 0, requestedWidth, requestedHeight, null);
+        g2.drawImage(resizedImage, imageSpaceWidth, imageSpaceHeight, null);
+        g2.dispose();
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(newImage, "jpg", os);
+
+        return os.toByteArray();
+    }
+}
