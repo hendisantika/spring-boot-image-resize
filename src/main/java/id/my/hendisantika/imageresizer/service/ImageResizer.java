@@ -1,5 +1,8 @@
 package id.my.hendisantika.imageresizer.service;
 
+import id.my.hendisantika.imageresizer.model.ImageSettings;
+import id.my.hendisantika.imageresizer.model.ImageSettingsBuilder;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
