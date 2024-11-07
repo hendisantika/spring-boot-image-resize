@@ -3,6 +3,7 @@ package id.my.hendisantika.imageresizer.service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -45,5 +46,26 @@ public class ImageResizer {
         ImageIO.write(newImage, "jpg", os);
 
         return os.toByteArray();
+    }
+
+    private BufferedImage calculateAspectRatio(BufferedImage sourceImage) {
+        int originWidth = sourceImage.getWidth();
+        int originHeight = sourceImage.getHeight();
+        int newWidth = originWidth;
+        int newHeight = originHeight;
+
+        if (originWidth > requestedWidth) {
+
+            newWidth = requestedWidth;
+            newHeight = (requestedWidth * originHeight) / originWidth;
+        }
+
+        if (newHeight > requestedHeight) {
+
+            newHeight = requestedHeight;
+            newWidth = (newHeight * originWidth) / originHeight;
+        }
+
+        return new BufferedImage(newWidth, newHeight, sourceImage.getType());
     }
 }
