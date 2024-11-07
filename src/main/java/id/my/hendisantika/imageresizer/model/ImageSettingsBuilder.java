@@ -27,4 +27,14 @@ public class ImageSettingsBuilder {
             throw new InvalidParameterException("The requested image type is not available. Valid types: thumbnail, detail ");
         }
     }
+
+    public void scaleImage(ImageSettings.ScaleType scaleType) {
+        if (scaleType == ImageSettings.ScaleType.CROP) {
+
+        } else if (scaleType == ImageSettings.ScaleType.FILL) {
+
+        } else if (scaleType == ImageSettings.ScaleType.SKEW) {
+
+        }
+    }
 }
