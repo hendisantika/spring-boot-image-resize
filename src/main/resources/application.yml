@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-boot-image-resize
+  servlet:
+    multipart:
+      max-request-size: 1GB
+      max-file-size: 1GB
+
+# AWS credentials are resolved by the AWS SDK DefaultCredentialsProvider
+# (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY env vars, ~/.aws/credentials, IAM role, ...).
+# Never hardcode real keys here.
+aws:
+  access: ${AWS_ACCESS:}
+  secret: ${AWS_SECRET:}
+  account-no: ${AWS_ACCOUNT_NO:}
+  s3:
+    bucket: ${S3_BUCKET:my-bucket}
+    region: ${S3_REGION:ap-southeast-1}

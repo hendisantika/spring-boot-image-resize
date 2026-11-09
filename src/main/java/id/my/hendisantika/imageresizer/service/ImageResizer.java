@@ -24,7 +24,6 @@ public class ImageResizer {
     private int requestedHeight;
 
     public byte[] resizeImage(BufferedImage sourceImage, String typeName) throws IOException {
-
         ImageSettingsBuilder imageSettingsBuilder = new ImageSettingsBuilder();
         ImageSettings imageSettings = imageSettingsBuilder.buildImageSettings(typeName);
         requestedWidth = imageSettings.getWidth();

@@ -5,6 +5,7 @@ import id.my.hendisantika.imageresizer.service.ImageResizer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,15 +30,17 @@ import java.net.URL;
 @RestController
 public class ImageController {
 
-    private final static String SOURCE_IMG_DIR = "https://s3.eu-west-2.amazonaws.com/bucket-10/resources/sourceImages/";
-    private final static String RESIZED_IMG_DIR = "https://s3.eu-west-2.amazonaws.com/bucket-10/resources/resizedImages/";
+    //    private final static String SOURCE_IMG_DIR = "https://s3.eu-west-2.amazonaws.com/bucket-10/resources/sourceImages/";
+//    private final static String RESIZED_IMG_DIR = "https://s3.eu-west-2.amazonaws.com/bucket-10/resources/resizedImages/";
+    private final static String SOURCE_IMG_DIR = "https://mhdc-dev.s3.ap-southeast-1.amazonaws.com/nakes/photos/sourceImages/";
+    private final static String RESIZED_IMG_DIR = "https://mhdc-dev.s3.ap-southeast-1.amazonaws.com/nakes/photos/resizedImages/";
 
     /**
      * @param fileName - the name of the image file
      * @param typeName - the type of the image file (e.g. thumbnail)
      * @return ResponseEntity - the resized image
      */
-    @RequestMapping(value = "/image/show/{typeName}/seo/{fileName}")
+    @GetMapping(value = "/image/show/{typeName}/seo/{fileName}")
     public ResponseEntity<byte[]> requestImage(@PathVariable String fileName, @PathVariable String typeName) {
         ImageSettingsBuilder imageSettingsBuilder = new ImageSettingsBuilder();
         imageSettingsBuilder.buildImageSettings(typeName);
