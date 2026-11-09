@@ -1,0 +1,64 @@
+version: 2
+
+updates:
+  # Maven dependencies (pom.xml)
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Asia/Jakarta"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    assignees:
+      - "hendisantika"
+    labels:
+      - "dependencies"
+      - "java"
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: "scope"
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+          - "org.springframework*"
+        update-types:
+          - "minor"
+          - "patch"
+      aws-sdk:
+        patterns:
+          - "software.amazon.awssdk*"
+      maven-minor-patch:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "org.springframework*"
+          - "software.amazon.awssdk*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions used in .github/workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Asia/Jakarta"
+    open-pull-requests-limit: 5
+    assignees:
+      - "hendisantika"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci(deps)"
+      include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
